@@ -1,0 +1,18 @@
+.button {
+    padding: 10px 30px 10px 30px;
+    font-size: x-large;
+    border-radius: 10px;
+    background-color: rgb(201, 231, 255);
+}
+
+.button:hover {
+    background-color: rgb(181, 199, 251);
+}
+
+.button:active {
+    background-color: rgb(139, 161, 226);
+}
+
+.button--pressed {
+    background-color: rgb(139, 161, 226);
+}

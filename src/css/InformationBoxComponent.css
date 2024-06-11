@@ -1,0 +1,37 @@
+.information {
+    padding: 25px 50px 25px 50px;
+    text-align: center;
+    margin-top: 25px;
+    border-radius: 25px;
+    word-wrap: break-word;
+}
+
+.information__header {
+    color: rgb(46, 46, 46);
+    margin: 0;
+}
+
+.information__text {
+    color: rgb(72, 72, 72);
+    margin: 25px 0 0 0;
+}
+
+.information--success {
+    border: 2px solid rgb(7, 255, 28);
+    background-color: rgb(152, 255, 183);
+}
+
+.information--warning {
+    border: 2px solid rgb(255, 222, 7);
+    background-color: rgb(255, 255, 152);
+}
+
+.information--error {
+    border: 2px solid rgb(255, 7, 7);
+    background-color: rgb(255, 152, 152);
+}
+
+.information--general {
+    border: 2px solid rgb(81, 7, 255);
+    background-color: rgb(183, 237, 255);
+}

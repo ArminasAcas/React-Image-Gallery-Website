@@ -1,0 +1,21 @@
+.container {
+    padding: 25px 50px 25px 50px;
+    margin: 50px;
+    border: 2px solid rgb(159, 157, 175);
+    box-shadow: 1px 1px 15px #96a2b3;
+    background-color: rgb(223, 239, 255);
+    border-radius: 25px;
+}
+
+.container--small {
+    width: 600px;
+    margin: 50px auto;
+}
+
+@media screen and (max-width: 768px) {
+    .container--small {
+        width: 80%; 
+        margin: 25px auto;
+        padding: 10px 20px 10px 20px;
+    }
+}
