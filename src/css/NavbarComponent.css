@@ -3,11 +3,13 @@
     overflow: hidden;
     margin: 0;
     padding: 0;
-    background-color: rgb(44, 114, 178);
+    background-color: rgb(178, 44, 44);
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
 }
 
 .navbar__element {
-    float: right;
     text-decoration: none;
 }
 
@@ -16,13 +18,17 @@
 }
 
 .navbar__element:hover {
-    background-color: rgb(26, 83, 136);
+    background-color: rgb(136, 26, 26);
+}
+
+.navbar__element:hover a {
+    color: rgb(255, 104, 104);
 }
 
 .navbar__link {
     text-decoration: none;
     color: white;
     font-size: x-large;
-    padding: 25px;
+    padding: 20px;
     display: block;
 }

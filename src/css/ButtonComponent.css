@@ -2,17 +2,17 @@
     padding: 10px 30px 10px 30px;
     font-size: x-large;
     border-radius: 10px;
-    background-color: rgb(201, 231, 255);
+    background-color: rgb(255, 201, 201);
 }
 
 .button:hover {
-    background-color: rgb(181, 199, 251);
+    background-color: rgb(251, 181, 181);
 }
 
 .button:active {
-    background-color: rgb(139, 161, 226);
+    background-color: rgb(226, 139, 139);
 }
 
 .button--pressed {
-    background-color: rgb(139, 161, 226);
+    background-color: rgb(226, 139, 139);
 }
