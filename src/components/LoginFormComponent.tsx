@@ -1,10 +1,11 @@
+import Form from "./FormComponent"
+import Header from "./HeaderComponent"
 import Label from "./LabelComponent"
 import InputText from "./InputTextComponent"
 import InputButton from "./InputButtonComponent"
-import Form from "./FormComponent"
-import Header from "./HeaderComponent"
-import { useState } from "react"
 import InformationBox from "./InformationBoxComponent"
+
+import { useState } from "react"
 import { LoginMessages } from "../global/textData"
 import { loginStatusTypes } from "../global/variables"
 import { informationTypes } from "../global/variables"
@@ -15,11 +16,37 @@ export default function LoginForm() {
 
     const [username,setUsername] = useState("");
     const [password, setPassword] = useState("");
-    const [loginSatus, setLoginStatus] = useState("");
+    const [loginStatus, setLoginStatus] = useState("");
     const [redirect,setRedirect] = useState(0);
     let infoText = "";
     let infoHeader = "";
     let infoType = "";
+
+    function checkLoginStatus() {
+        if (!loginStatus) return; 
+
+        if (loginStatus === loginStatusTypes.incorrectCredentials) {
+            infoHeader = LoginMessages.incorrectCredentials.header;
+            infoText = LoginMessages.incorrectCredentials.text;
+            infoType = informationTypes.error;
+        }
+
+        if (loginStatus === loginStatusTypes.error) {
+            infoHeader = LoginMessages.error.header;
+            infoText = LoginMessages.error.text;
+            infoType = informationTypes.error;
+        }
+
+        if (loginStatus === loginStatusTypes.serverError) {
+            infoHeader = LoginMessages.serverError.header;
+            infoText = LoginMessages.serverError.text;
+            infoType = informationTypes.error;
+        }
+    }
+
+    function checkRedirectStatus() {
+        if (redirect) return <Navigate to="/Dashboard" replace/>
+    }
 
     const handleUsernameChange = (e: React.ChangeEvent<HTMLInputElement>) => {
         setUsername(e.target.value);
@@ -72,25 +99,8 @@ export default function LoginForm() {
         }
     }
 
-    if (loginSatus.length > 0) {
-        if (loginSatus === loginStatusTypes.incorrectCredentials) {
-            infoHeader = LoginMessages.incorrectCredentials.header;
-            infoText = LoginMessages.incorrectCredentials.text;
-            infoType = informationTypes.error;
-        }
-        if (loginSatus === loginStatusTypes.error) {
-            infoHeader = LoginMessages.error.header;
-            infoText = LoginMessages.error.text;
-            infoType = informationTypes.error;
-        }
-        if (loginSatus === loginStatusTypes.serverError) {
-            infoHeader = LoginMessages.serverError.header;
-            infoText = LoginMessages.serverError.text;
-            infoType = informationTypes.error;
-        }
-    }
-    
-    if (redirect) return <Navigate to="/Dashboard" replace/>
+    checkLoginStatus();
+    checkRedirectStatus();
     
     return (
         <Form onSubmit={handleSubmit}>
@@ -100,7 +110,7 @@ export default function LoginForm() {
             <Label htmlFor="password" text="Password" />
             <InputText type="password" id="password" name="password" value={password} onChange={handlePasswordChange} isRequired={true}/>
             <InputButton type="submit" value="Log in" />
-            {loginSatus.length > 0 ? <InformationBox header={infoHeader} text={infoText} type={infoType}></InformationBox> : null}
+            {loginStatus ? <InformationBox header={infoHeader} text={infoText} type={infoType}></InformationBox> : null}
         </Form>
     )
 }

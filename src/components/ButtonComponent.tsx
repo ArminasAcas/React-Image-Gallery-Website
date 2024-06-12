@@ -1,10 +1,10 @@
 import "../css/ButtonComponent.css"
 
 export default function Button(props: {text:string, onClick?: () => void, onClickKeepPressed?: boolean}) {
-    let classNames = "button";
+    let classNames = "button ";
 
     function selectClassNames() {
-        if (props.onClickKeepPressed) classNames += " button--pressed"
+        if (props.onClickKeepPressed) classNames += "button--pressed"
     }
     
     selectClassNames();

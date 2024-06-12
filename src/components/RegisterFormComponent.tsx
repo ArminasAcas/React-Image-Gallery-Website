@@ -1,10 +1,11 @@
+import Form from "./FormComponent"
+import Header from "./HeaderComponent"
 import Label from "./LabelComponent"
 import InputText from "./InputTextComponent"
 import InputButton from "./InputButtonComponent"
-import Form from "./FormComponent"
-import Header from "./HeaderComponent"
-import React, { useState } from "react"
 import InformationBox from "./InformationBoxComponent"
+
+import React, { useState } from "react"
 import { warningTypes } from "../global/variables"
 import { warningMessages } from "../global/textData"
 import { informationTypes } from "../global/variables"
@@ -22,6 +23,87 @@ export default function RegisterForm() {
     let informationType = "";
     let informationText = "";
     let informationHeader = "";
+
+    function DoInputsMeetRequirements() {
+
+        if (username.length < 6){
+            setWarningStatus(warningTypes.ShortUsername);
+            return false;
+        }
+
+        if (password.length < 8){
+            setWarningStatus(warningTypes.ShortPassword);
+            return false;
+        }
+
+        if (!/\d/.test(password)){
+            setWarningStatus(warningTypes.PasswordMissingDigit);
+            return false;
+        }
+
+        if (!/[a-z]/.test(password)){
+            setWarningStatus(warningTypes.PasswordMissingLowerCaseCharacter);
+            return false;
+        }
+
+        if (!/[A-Z]/.test(password)){
+            setWarningStatus(warningTypes.PasswordMissingUpperCaseCharacter);
+            return false;
+        }
+
+        if (password !== repeatPassword){
+            setWarningStatus(warningTypes.PasswordsNotEqual);
+            return false;
+        }
+
+        if(warningStatus) setWarningStatus("");
+
+        return true;
+    }
+
+    function checkWarningStatus() {
+        if (!warningStatus) return;
+
+
+        informationHeader = "Warning";
+        informationType = informationTypes.warning;
+
+        console.log("Checking warning status function - " + warningStatus);
+        if (warningStatus === warningTypes.ShortPassword) informationText = warningMessages.ShortPassword;
+        if (warningStatus === warningTypes.PasswordMissingDigit) informationText = warningMessages.PasswordMissingDigit
+        if (warningStatus === warningTypes.PasswordMissingLowerCaseCharacter) informationText = warningMessages.PasswordMissingLowerCaseCharacter
+        if (warningStatus === warningTypes.PasswordMissingUpperCaseCharacter) informationText = warningMessages.PasswordMissingUpperCaseCharacter;
+        if (warningStatus === warningTypes.PasswordsNotEqual) informationText = warningMessages.PasswordsNotEqual;
+        if (warningStatus === warningTypes.ShortUsername) informationText = warningMessages.ShortUsername;
+    }
+
+    function checkRegistrationStatus() {
+        if (!registrationStatus || warningStatus) return;
+
+        if (registrationStatus === registrationStatusTypes.success) {
+            informationType = informationTypes.success;
+            informationHeader = RegistrationMessages.success.header;
+            informationText = RegistrationMessages.success.text;
+        }
+
+        if (registrationStatus === registrationStatusTypes.error) {
+            informationType = informationTypes.error;
+            informationHeader = RegistrationMessages.error.header;
+            informationText = RegistrationMessages.error.text;
+        }
+
+        if (registrationStatus === registrationStatusTypes.usernameTaken) {
+            informationType = informationTypes.warning;
+            informationHeader = RegistrationMessages.usernameTaken.header;
+            informationText = RegistrationMessages.usernameTaken.text;
+        }
+
+        if (registrationStatus === registrationStatusTypes.emailTaken) {
+            informationType = informationTypes.warning;
+            informationHeader = RegistrationMessages.emailTaken.header;
+            informationText = RegistrationMessages.emailTaken.text;
+        }
+    }
 
     const handleUsernameChange = (e: React.ChangeEvent<HTMLInputElement>) => {
         setUsername(e.target.value);
@@ -41,37 +123,14 @@ export default function RegisterForm() {
 
     const handleSubmit = (e : React.FormEvent<HTMLFormElement>) => {
         e.preventDefault();
-        setWarningStatus("");
 
-        if (username.length < 6){
-            setWarningStatus(warningTypes.ShortUsername);
-            return;
-        }
+        console.log("Handling sumbit, warning status before function is " + warningStatus);
 
-        if (password.length < 8){
-            setWarningStatus(warningTypes.ShortPassword);
-            return;
-        }
+        if ( !DoInputsMeetRequirements() ) return;
 
-        if (!/\d/.test(password)){
-            setWarningStatus(warningTypes.PasswordMissingDigit);
-            return
-        }
-
-        if (!/[a-z]/.test(password)){
-            setWarningStatus(warningTypes.PasswordMissingLowerCaseCharacter);
-            return;
-        }
-
-        if (!/[A-Z]/.test(password)){
-            setWarningStatus(warningTypes.PasswordMissingUpperCaseCharacter);
-            return;
-        }
-
-        if (password !== repeatPassword){
-            setWarningStatus(warningTypes.PasswordsNotEqual);
-            return;
-        }
+        console.log("Handling sumbit, warning status after function is " + warningStatus);
+        if (warningStatus) return;
+        console.log("warning status empty so trying to register user..");
 
         const FormData =
         {
@@ -111,39 +170,8 @@ export default function RegisterForm() {
         }
     }
 
-    if (warningStatus.length > 0) {
-        informationType = informationTypes.warning;
-        informationHeader = "Warning";
-        if (warningStatus === warningTypes.ShortPassword) informationText = warningMessages.ShortPassword;
-        if (warningStatus === warningTypes.PasswordMissingDigit) informationText = warningMessages.PasswordMissingDigit
-        if (warningStatus === warningTypes.PasswordMissingLowerCaseCharacter) informationText = warningMessages.PasswordMissingLowerCaseCharacter
-        if (warningStatus === warningTypes.PasswordMissingUpperCaseCharacter) informationText = warningMessages.PasswordMissingUpperCaseCharacter;
-        if (warningStatus === warningTypes.PasswordsNotEqual) informationText = warningMessages.PasswordsNotEqual;
-        if (warningStatus === warningTypes.ShortUsername) informationText = warningMessages.ShortUsername;
-    }
-
-    if (registrationStatus.length > 0) {
-        if (registrationStatus === registrationStatusTypes.success) {
-            informationType = informationTypes.success;
-            informationHeader = RegistrationMessages.success.header;
-            informationText = RegistrationMessages.success.text;
-        }
-        if (registrationStatus === registrationStatusTypes.error) {
-            informationType = informationTypes.error;
-            informationHeader = RegistrationMessages.error.header;
-            informationText = RegistrationMessages.error.text;
-        }
-        if (registrationStatus === registrationStatusTypes.usernameTaken) {
-            informationType = informationTypes.warning;
-            informationHeader = RegistrationMessages.usernameTaken.header;
-            informationText = RegistrationMessages.usernameTaken.text;
-        }
-        if (registrationStatus === registrationStatusTypes.emailTaken) {
-            informationType = informationTypes.warning;
-            informationHeader = RegistrationMessages.emailTaken.header;
-            informationText = RegistrationMessages.emailTaken.text;
-        }
-    }
+    checkWarningStatus();
+    checkRegistrationStatus();
 
     return (
         <Form onSubmit={handleSubmit}>
@@ -157,7 +185,7 @@ export default function RegisterForm() {
             <Label htmlFor="repeatPassword" text="Repeat password"/>
             <InputText type="password" id="repeatPassword" name="repeatPassword" value={repeatPassword} onChange={handleRepeatPasswordChange} isRequired={true} maxLenght={64}/>
             <InputButton type="submit" value="Register"/>
-            {informationText.length > 0 ? <InformationBox header={informationHeader} text={informationText} type={informationType}/> : null}
+            {informationText ? <InformationBox header={informationHeader} text={informationText} type={informationType}/> : null}
         </Form>
     )
 }
