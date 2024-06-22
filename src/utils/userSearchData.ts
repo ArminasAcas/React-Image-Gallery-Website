@@ -15,6 +15,7 @@ export const userSearchData = {
         const user = localStorage.getItem("user");
         return { title, tags, startDate, endDate, user };
     },
+    
     removeSearchData: () => {
         localStorage.removeItem("title");
         localStorage.removeItem("tags");
