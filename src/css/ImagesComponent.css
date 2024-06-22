@@ -1,0 +1,6 @@
+.images {
+    margin: 50px 5% 50px 5%;
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(256px, 1fr));
+    grid-gap: 10px;
+}
