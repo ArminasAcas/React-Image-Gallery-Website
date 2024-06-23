@@ -25,9 +25,11 @@ export default function ImagePreview(props:{ id:bigint}) {
     
     return (
         <>
-            <a className="image" href={"/image/" + props.id}>
-                 {isImageLoaded && imageURL ? <img src={imageURL} alt="" className="image-container"></img>: null} 
-            </a>
+        {isImageLoaded && imageURL ? 
+            <a className="image" href={"/image/" + props.id}> 
+                <img src={imageURL} alt="" className="image-container"></img>
+            </a>: null 
+        }
         </>
     )
 }

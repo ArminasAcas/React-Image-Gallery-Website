@@ -3,6 +3,7 @@ import Login from './LoginPage'
 import Register from './RegisterPage'
 import Search from "./SearchPage";
 import Gallery from './ImageGalleryPage';
+import ViewImage from './ImageViewPage';
 import PublicRoute from '../components/PublicRoute'
 import ProtectedRoute from '../components/ProtectedRoute';
 
@@ -20,6 +21,7 @@ function App() {
           <Route index path='/Gallery' element={<Gallery/>}/>
           <Route path='/Login' element={<PublicRoute> <Login/> </PublicRoute>}/>
           <Route path='/Register' element={<PublicRoute> <Register/> </PublicRoute>}/>
+          <Route path="/image/:id" element={<ViewImage/>} />
         </Routes>
       </BrowserRouter>
     </>
