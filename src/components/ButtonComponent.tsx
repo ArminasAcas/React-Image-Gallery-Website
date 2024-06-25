@@ -1,10 +1,13 @@
 import "../css/ButtonComponent.css"
 
-export default function Button(props: {text:string, onClick?: () => void, onClickKeepPressed?: boolean}) {
+export default function Button(props: {text:string, onClick?: () => void, onClickKeepPressed?: boolean, variant?: string}) {
     let classNames = "button ";
 
     function selectClassNames() {
-        if (props.onClickKeepPressed) classNames += "button--pressed"
+        switch(props.variant) {
+            case "mini": classNames += " button--mini";
+        }
+        if (props.onClickKeepPressed) classNames += " button--pressed";
     }
     
     selectClassNames();

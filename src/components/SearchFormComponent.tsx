@@ -77,7 +77,7 @@ export default function SearchForm() {
                 <Label htmlFor="tags" text="Image Tags" />
                 <InputText type="text" id="tags" name="tags" value={tags} onChange={handleTagChange}/>
                 { areSettingsExpanded ? extraSettings : null }
-                <Button text={inputButtonText} onClick={handleExpandSettingsButtonClick}/>
+                <Button text={inputButtonText} onClick={handleExpandSettingsButtonClick} variant="mini"/>
                 <InputButton type="submit" value="Search Images" />
             </Form>
         </>
