@@ -1,4 +1,7 @@
 import ImagePreview from "./ImagePreviewComponent"
+import Header from "./HeaderComponent"
+import Container from "./ContainerComponent"
+import Data from "./DataDisplayComponent"
 import { useState, useEffect } from "react"
 import "../css/ImagesComponent.css"
 
@@ -43,6 +46,15 @@ export default function Images() {
     
     return (
         <> 
+            <Container>
+                <Header text="Search Settings"></Header>
+                <Data dataName="Image title"  data={search.title}/>
+                <Data dataName="Tags" data={search.tags} /> 
+                <Data dataName="User" data={search.user} /> 
+                <Data dataName="Search from date" data={search.startDate} /> 
+                <Data dataName="Search to date" data={search.endDate} /> 
+           </Container>
+
             <div className="images">
                 {areIDsLoaded && images ? images : null}
             </div>

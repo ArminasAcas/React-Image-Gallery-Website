@@ -7,7 +7,7 @@ import InformationBox from "./InformationBoxComponent"
 import Button from "./ButtonComponent"
 import InputDate from "./InputDateComponent"
 
-import { useState } from "react"
+import { useEffect, useState } from "react"
 import { informationTypes } from "../global/variables"
 import { Navigate } from "react-router-dom"
 import { userSearchData } from "../utils/userSearchData"
@@ -21,7 +21,12 @@ export default function SearchForm() {
     const [user, setUser] = useState("");
     const [areSettingsExpanded, setAreSettingsExpanded] = useState(false);
     const [navigateToGallery, setNavigateToGallery] = useState(false);
+    const [dateParameterIsChanged, setDateParameterIsChanged] = useState(false);
     let inputButtonText = (areSettingsExpanded ? "Hide extra settings" : "Show extra settings");
+
+    useEffect( () => {
+        setDateParameterIsChanged(true);
+    }, [startDate, endDate])
     
     function handleTitleChange(e : React.ChangeEvent<HTMLInputElement>) {
         setTitle(e.target.value);
@@ -49,13 +54,17 @@ export default function SearchForm() {
 
     function handleSubmit(e: React.FormEvent<HTMLFormElement>) {
         e.preventDefault();
-        userSearchData.setSearchData(title, tags, startDate, endDate, user);
+        if (!dateParameterIsChanged) userSearchData.setSearchData(title, tags, user);
+        userSearchData.setSearchData(title, tags, user, startDate, endDate);
+
         setNavigateToGallery(true);
     }
 
     if (navigateToGallery) {
         return <Navigate to="/Gallery" replace />;
     }
+
+    console.log(dateParameterIsChanged);
 
     const extraSettings = (
         <>

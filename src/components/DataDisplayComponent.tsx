@@ -1,11 +1,13 @@
 import "../css/DataDisplayComponent.css"
 
-export default function Data(props: {dataName: string, data: string}) {
+export default function Data(props: {dataName: string, data: string|null}) {
 
     return (
         <>
-            <div className="data-display"> {props.dataName + ": " + props.data} </div>
+            {
+            props.data ? <div className="data-display"> {props.dataName + ": " + props.data} </div> : 
+            <div className="data-display"> {props.dataName + ": "} </div>
+            }   
         </>
     )
-
 }

@@ -1,9 +1,9 @@
 export const userSearchData = {
-    setSearchData: (title:string, tags:string, startDate:Date, endDate:Date, user:string) => {
+    setSearchData: (title:string, tags:string, user:string, startDate?:Date, endDate?:Date) => {
         localStorage.setItem("title", title);
         localStorage.setItem("tags", tags);
-        localStorage.setItem("startDate", JSON.stringify(startDate));
-        localStorage.setItem("endDate", JSON.stringify(endDate));
+        if (startDate) localStorage.setItem("startDate", JSON.stringify(startDate));
+        if (endDate) localStorage.setItem("endDate", JSON.stringify(endDate));
         localStorage.setItem("user", user);
     },
 
