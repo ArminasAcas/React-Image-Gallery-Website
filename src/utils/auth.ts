@@ -3,7 +3,7 @@ import { tokenUtils } from "./token";
 export const verifyToken = async (token: string) => {
     try {
         const response = await fetch (
-            "http://localhost:3500/api/verifyToken",
+            "http://localhost:3000/api/verifyToken",
             {
                 method: "POST",
                 headers: {
