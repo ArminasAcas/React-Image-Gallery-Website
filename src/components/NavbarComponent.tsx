@@ -6,6 +6,7 @@ import { useState, useEffect } from "react";
 
 export default function Navbar() {
     const [isAuthenticated, setIsAuthenticated] = useState<boolean | null>(null);
+    const [Logout,setLogout] = useState(false);
 
     useEffect(() => {
         const checkAuthentication = async () => {
@@ -24,9 +25,11 @@ export default function Navbar() {
     
     const handleLogout = () => {
         tokenUtils.removeToken();
-        return <Navigate to="/Login" replace/>
+        setLogout(true);
     }
 
+    if (Logout) return <Navigate to="/Login" replace/>
+    
     if (isAuthenticated === null) return <div></div>
 
     if (!isAuthenticated) return (
@@ -34,15 +37,17 @@ export default function Navbar() {
             <li className="navbar__element"> <a className="navbar__link" href="/Login">Login</a> </li>
             <li className="navbar__element"> <a className="navbar__link" href="/Register">Register</a> </li>
             <li className="navbar__element"> <a className="navbar__link" href="/Search">Search</a> </li>
+            <li className="navbar__element"> <a className="navbar__link" href="/Gallery">Gallery</a> </li>
         </ul>
     )
 
     return (
         <>
             <ul className="navbar">
-                <li className="navbar__element"> <a className="navbar__link" href="" onClick={handleLogout}>Logout</a></li>
                 <li className="navbar__element"> <a className="navbar__link" href="/Search">Search</a></li>
+                <li className="navbar__element"> <a className="navbar__link" href="/Gallery">Gallery</a> </li>
                 <li className="navbar__element"> <a className="navbar__link" href="/Upload">Uplooad Image</a></li>
+                <li className="navbar__element"> <a className="navbar__link" href="" onClick={handleLogout}>Logout</a></li>
             </ul>
         </>
     )

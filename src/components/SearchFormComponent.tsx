@@ -3,12 +3,10 @@ import Header from "./HeaderComponent"
 import Label from "./LabelComponent"
 import InputText from "./InputTextComponent"
 import InputButton from "./InputButtonComponent"
-import InformationBox from "./InformationBoxComponent"
 import Button from "./ButtonComponent"
 import InputDate from "./InputDateComponent"
 
-import { useEffect, useState } from "react"
-import { informationTypes } from "../global/variables"
+import { useState } from "react"
 import { Navigate } from "react-router-dom"
 import { userSearchData } from "../utils/userSearchData"
 
@@ -16,17 +14,12 @@ export default function SearchForm() {
 
     const [title, setTitle] = useState("");
     const [tags, setTags] = useState("");
-    const [startDate, setStartDate] = useState (new Date());
-    const [endDate, setEndDate] = useState (new Date());
+    const [startDate, setStartDate] = useState <Date>();
+    const [endDate, setEndDate] = useState <Date>();
     const [user, setUser] = useState("");
     const [areSettingsExpanded, setAreSettingsExpanded] = useState(false);
     const [navigateToGallery, setNavigateToGallery] = useState(false);
-    const [dateParameterIsChanged, setDateParameterIsChanged] = useState(false);
     let inputButtonText = (areSettingsExpanded ? "Hide extra settings" : "Show extra settings");
-
-    useEffect( () => {
-        setDateParameterIsChanged(true);
-    }, [startDate, endDate])
     
     function handleTitleChange(e : React.ChangeEvent<HTMLInputElement>) {
         setTitle(e.target.value);
@@ -54,7 +47,6 @@ export default function SearchForm() {
 
     function handleSubmit(e: React.FormEvent<HTMLFormElement>) {
         e.preventDefault();
-        if (!dateParameterIsChanged) userSearchData.setSearchData(title, tags, user);
         userSearchData.setSearchData(title, tags, user, startDate, endDate);
 
         setNavigateToGallery(true);
@@ -64,14 +56,12 @@ export default function SearchForm() {
         return <Navigate to="/Gallery" replace />;
     }
 
-    console.log(dateParameterIsChanged);
-
     const extraSettings = (
         <>
             <Label htmlFor="dateStart" text="From Date" />
-            <InputDate id="dateStart" name="dateStart" onChange={handleDateStartChange} value ={startDate}/>
+            <InputDate id="dateStart" name="dateStart" onChange={handleDateStartChange} />
             <Label htmlFor="dateEnd" text="To Date" />
-            <InputDate id="dateEnd" name="dateEnd" onChange={handleDateEndChange} value ={endDate}/>
+            <InputDate id="dateEnd" name="dateEnd" onChange={handleDateEndChange}/>
             <Label htmlFor="user" text="User" />
             <InputText type="text" id="user" name="user" value={user} onChange={handleUserChange}/>
         </>

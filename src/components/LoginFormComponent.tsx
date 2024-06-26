@@ -44,10 +44,6 @@ export default function LoginForm() {
         }
     }
 
-    function checkRedirectStatus() {
-        if (redirect) return <Navigate to="/Dashboard" replace/>
-    }
-
     const handleUsernameChange = (e: React.ChangeEvent<HTMLInputElement>) => {
         setUsername(e.target.value);
     }
@@ -100,7 +96,8 @@ export default function LoginForm() {
     }
 
     checkLoginStatus();
-    checkRedirectStatus();
+
+    if (redirect) return <Navigate to="/Gallery" replace/>
     
     return (
         <Form onSubmit={handleSubmit}>

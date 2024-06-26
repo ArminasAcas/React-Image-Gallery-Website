@@ -14,7 +14,8 @@ export default function Images() {
     const [areIDsLoaded, setAreIDsLoaded] = useState(false);
 
     let search = userSearchData.getSearchData();
-    let images
+    let images;
+    let searchDataDisplay;
 
     async function getImageIDs() {
         try {
@@ -41,11 +42,10 @@ export default function Images() {
 
     if (!areIDsLoaded) getImageIDs();
     
-    
     if (areIDsLoaded) images = IDList.map((id) => <ImagePreview key={id} id={id} />);
     
-    return (
-        <> 
+    if (!userSearchData.isSearchDataEmpty()) searchDataDisplay = (
+        <>
             <Container>
                 <Header text="Search Settings"></Header>
                 <Data dataName="Image title"  data={search.title}/>
@@ -54,7 +54,12 @@ export default function Images() {
                 <Data dataName="Search from date" data={search.startDate} /> 
                 <Data dataName="Search to date" data={search.endDate} /> 
            </Container>
+        </>
+    )
 
+    return (
+        <> 
+            {searchDataDisplay ? searchDataDisplay : null}
             <div className="images">
                 {areIDsLoaded && images ? images : null}
             </div>

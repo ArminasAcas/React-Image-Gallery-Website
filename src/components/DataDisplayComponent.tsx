@@ -4,10 +4,7 @@ export default function Data(props: {dataName: string, data: string|null}) {
 
     return (
         <>
-            {
-            props.data ? <div className="data-display"> {props.dataName + ": " + props.data} </div> : 
-            <div className="data-display"> {props.dataName + ": "} </div>
-            }   
+            {props.data ? <div className="data-display"> {props.dataName + ": " + props.data} </div> : null}   
         </>
     )
 }
